@@ -1,11 +1,11 @@
 import { Container, Nav, NavDropdown } from "react-bootstrap";
-import {HeaderNavbar,HeaderContainer} from './styles'
+import {HeaderNavbar, HeaderNavbarBrand} from './styles'
 
 export function Header() {
     return(
-    <HeaderNavbar expand="lg" className="bg-body-tertiary">
-      <HeaderContainer>
-        <HeaderNavbar.Brand href="#home">Movie Finder</HeaderNavbar.Brand>
+    <HeaderNavbar expand="lg" variant='dark' bg="dark" >
+      
+        <HeaderNavbarBrand href="#home">Movie Finder</HeaderNavbarBrand>
         <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />
         <HeaderNavbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -14,7 +14,7 @@ export function Header() {
             
           </Nav>
         </HeaderNavbar.Collapse>
-      </HeaderContainer>
+      
     </HeaderNavbar>
     )
 }
