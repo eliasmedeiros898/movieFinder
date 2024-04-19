@@ -18,6 +18,8 @@ export const CustomCard = styled(Card)`
     button {
         background: none;
         border: none;
+        
+        
     }
 
 

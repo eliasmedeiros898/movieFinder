@@ -1,11 +1,8 @@
 import { useContext, useEffect } from "react"
-import { MoviesContext } from "../../contexts/MoviesContext"
-import { Card } from "react-bootstrap"
-import { CustomStar } from "../Home/styles"
-import { Heart } from "phosphor-react"
 import { Header } from "../../components/Header"
-import { HomeCard } from "../Home/components/HomeCard"
+import { MoviesContext } from "../../contexts/MoviesContext"
 import { FavoritesContent } from "../FavoritesPage/styles"
+import { HomeCard } from "../Home/components/HomeCard"
 
 
 export function FavoritesPage(){
@@ -22,6 +19,7 @@ export function FavoritesPage(){
             <Header />
 
             <FavoritesContent >
+            
                 {favoriteMovies.map(movie => (
                     <HomeCard 
                     key={movie.id}
@@ -32,7 +30,7 @@ export function FavoritesPage(){
                     
                     />
                 ))}
-
+            
 
                 
             </FavoritesContent>

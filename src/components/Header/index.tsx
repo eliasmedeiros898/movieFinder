@@ -34,7 +34,7 @@ export function Header() {
 
     return(
     <>
-    <HeaderNavbar expand="lg" variant='dark' bg="none">
+    <HeaderNavbar expand="lg" variant='dark' bg="none" style={{width:"100vw"}}>
       
         <HeaderNavbarBrand href="/">Movie Finder</HeaderNavbarBrand>
           <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />

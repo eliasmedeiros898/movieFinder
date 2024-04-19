@@ -4,15 +4,17 @@ import styled from "styled-components";
 
 export const HeaderNavbar = styled(Navbar)`
     padding: 1rem;
-    min-height: 5rem;
     
+    min-height: 5rem;
+    position: sticky;
     align-items: center;
     width: auto;
     display: flex;
-    width: 100vw;
+    
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
     z-index: 1;
 
+    
 `
 
 export const HeaderNavbarBrand = styled(Navbar.Brand)`
@@ -29,6 +31,9 @@ export const HeaderNavbarBrand = styled(Navbar.Brand)`
      transition: 0.5s;
 
 `
+
+
+
 
 
 
