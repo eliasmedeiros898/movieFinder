@@ -7,27 +7,23 @@ import Card from 'react-bootstrap/Card';
 import { Header } from "../../components/Header";
 import { Movie, MoviesContext } from "../../contexts/MoviesContext";
 import { CustomCarousel, CustomCarouselCaption, CustomHeart, CustomStar, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
+import { HomeCard } from "./components/HomeCard";
 
 
 
 export function Home() {
 
-    const {topMovies, upcomingMovies,popularMovies,fetchPopularMovies, fetchTopRatedMovies,fetchUpcomingMovies} = useContext(MoviesContext)
+    const {topMovies, upcomingMovies,popularMovies,fetchPopularMovies, fetchTopRatedMovies,fetchUpcomingMovies, setMovieAsFavorite} = useContext(MoviesContext)
     const [heartClicked, setHeartClicked] = useState(false);
     
-    const handleClick = () => {
-        setHeartClicked(!heartClicked);
-      };
-    
-    
-
     useEffect(() => {
         fetchTopRatedMovies()
         fetchUpcomingMovies()
         fetchPopularMovies()
+        
     }, [])
 
-    
+
     return(
         <Wrapper>
             <Header />
@@ -61,21 +57,15 @@ export function Home() {
                             
                         
                     {topMovies.map(movie => (
-                                <a key={movie.id} href={`/movie_page/${movie.id}`}>
-                                <Card  style={{width:"20rem"}} bg="dark" text="white">
-                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-                                    <Card.Body >
-                                        <Card.Title >{movie.title}</Card.Title>
-                                        <Card.Text style={{display:"flex", gap:"1rem", alignItems:"center", justifyContent:"space-between"}}>
-                                            <div>
-                                                <CustomStar /> {movie.vote_average.toFixed(1)}
-                                            </div>
-                                            <Heart/>
-                                        
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                                </a>
+                                
+                                <HomeCard 
+                                    key={movie.id}
+                                    title={movie.title}
+                                    id={movie.id}
+                                    vote_average={movie.vote_average}
+                                    poster_path={movie.poster_path}
+                                />
+                                
                             ))}
                                 
                         </MovieCardWrapper>
@@ -88,23 +78,13 @@ export function Home() {
                             
                         
                             {upcomingMovies.map(movie => (
-                                <a key={movie.id} href={`/movie_page/${movie.id}`}>
-                                <Card  style={{width:"20rem"}} bg="dark" text="white">
-                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-                                    <Card.Body >
-                                        <Card.Title >{movie.title}</Card.Title>
-                                        <Card.Title style={{display:"flex", justifyContent:"space-between"}}>
-
-                                            {format(new Date(movie.release_date), 'dd/MM/yyyy')} 
-                                            <button>
-                                              <CustomHeart size={34} weight={heartClicked ? 'fill' : 'regular'} onClick={handleClick}/>  
-                                            </button>
-                                            
-                                        
-                                        </Card.Title>
-                                    </Card.Body>
-                                </Card>
-                                </a>
+                                <HomeCard 
+                                    key={movie.id}
+                                    title={movie.title}
+                                    id={movie.id}
+                                    vote_average={movie.vote_average}
+                                    poster_path={movie.poster_path}
+                                />
                             ))}
                                 
                         </MovieCardWrapper>
@@ -114,7 +94,7 @@ export function Home() {
         
         
 
-
+            
 
             
         </Wrapper>

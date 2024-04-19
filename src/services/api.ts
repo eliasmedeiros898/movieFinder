@@ -5,7 +5,7 @@ export const api = axios.create({
     headers: {
         accept: 'application/json',
         
-        Authorization: `Bearer ${import.meta.env.VITE_TBDB_ACCESS_TOKEN}`
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`
     }
 })
 

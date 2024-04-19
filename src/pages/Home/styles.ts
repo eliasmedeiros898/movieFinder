@@ -51,16 +51,7 @@ export const MovieCardWrapper = styled.div`
     height: fit-content;
     
     
-    a {
-        text-decoration: none;
-        transition: transform 0.4s ease;
-    }
-
-    a:hover{
-        transform: scale(1.04);
-        
-        
-    }
+    
     
     button {
         background: none;

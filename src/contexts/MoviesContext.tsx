@@ -82,13 +82,16 @@ interface MoviesContextType {
     topMovies: Movie[]
     upcomingMovies: Movie[]
     popularMovies: Movie[]
+    favoriteMovies: Movie[]
     guestSessionId: string
     searchedMovies: Movie[]
     fetchTopRatedMovies: () => Promise<void>
     fetchUpcomingMovies: () => Promise<void>
     fetchPopularMovies: () => Promise<void>
+    fetchFavoritesMovies: () => Promise<void>
     createGuestSession: () => Promise<void>
     getMovieById: (id:string) => Promise<MovieDetais>
+    setMovieAsFavorite: (id:number) => Promise<void>
     searchMovies: (query:string, page?: number) => Promise<void>
     //getSearchedMovieObject: (query:string) => Promise<SearchMovieType>
     
@@ -115,6 +118,7 @@ export const MoviesContext = createContext({} as MoviesContextType)
         const [topMovies, setTopMovies] = useState<Movie[]>([])
         const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([])
         const [popularMovies, setPopularMovies] = useState<Movie[]>([])
+        const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([])
         const [guestSessionId, setGuestSessionId] = useState<string>('')
         const [searchedMovies, setSearchedMovies] = useState<Movie[]>([])
         //const [searchedMoviesObject, setSearchedMoviesObject] = useState<SearchMovieType>()
@@ -135,6 +139,10 @@ export const MoviesContext = createContext({} as MoviesContextType)
         
       }
       
+      async function fetchFavoritesMovies() {
+        const response = await api.get(`/account/${import.meta.env.VITE_TMDB_ACCOUNT_ID}/favorite/movies`)
+        setFavoriteMovies(response.data.results)
+      }
 
       async function createGuestSession() {
           const response = await api.get(`/authentication/guest_session/new`)
@@ -151,6 +159,22 @@ export const MoviesContext = createContext({} as MoviesContextType)
         setSearchedMovies(response.data.results)
         
       }
+
+
+      async function setMovieAsFavorite(id: number) {
+        try {
+          const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+          const accountId = import.meta.env.VITE_TMDB_ACCOUNT_ID;
+          const response = await api.post(`https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            {media_type: 'movie', media_id: id, favorite: true}, {params: {apiKey: apiKey}}
+          )
+
+          return response.data
+      } catch (error) {
+        console.error('Erro ao favoritar o filme:', error);
+        throw error;
+      }
+    }
 
       // async function getSearchedMovieObject(query:string){
       //   const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}`)
@@ -171,10 +195,13 @@ export const MoviesContext = createContext({} as MoviesContextType)
           upcomingMovies,
           guestSessionId,
           popularMovies,
+          favoriteMovies,
           searchedMovies,
           fetchTopRatedMovies,
           fetchUpcomingMovies,
           fetchPopularMovies,
+          fetchFavoritesMovies,
+          setMovieAsFavorite,
           createGuestSession,
           getMovieById,
           searchMovies,
@@ -186,4 +213,3 @@ export const MoviesContext = createContext({} as MoviesContextType)
       </MoviesContext.Provider>
     )
   }
-  

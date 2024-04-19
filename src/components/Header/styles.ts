@@ -25,13 +25,12 @@ export const HeaderNavbarBrand = styled(Navbar.Brand)`
     -1px  1px 0 #000,
      1px  1px 0 #000;
     
+     
+     transition: 0.5s;
 
 `
 
-export const SearchButton = styled.button`
 
-
-`
 
 
 
