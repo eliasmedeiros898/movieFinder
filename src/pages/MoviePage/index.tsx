@@ -1,10 +1,9 @@
+import { format } from "date-fns";
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Header } from '../../components/Header';
 import { MovieDetais, MoviesContext } from '../../contexts/MoviesContext';
 import { AverageVote, Content, MovieDetails, Overview, Poster, ReleaseDate } from '../MoviePage/styles';
-import { format } from "date-fns";
-import { Header } from '../../components/Header';
-import { FavoriteButton } from '../../components/FavoriteButton';
 
 
 export function MoviePage() {
