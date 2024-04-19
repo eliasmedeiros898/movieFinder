@@ -44,7 +44,7 @@ export function MoviePage() {
                 <Overview>
                     <h1>{movie.title}</h1>
                     
-                    <p>{movie.id}</p>
+                    <p>{movie.overview}</p>
                     <ReleaseDate>
                         <h2>Lançamento</h2>
                         <p>{format(new Date(movie.release_date), 'dd/MM/yyyy')}</p>

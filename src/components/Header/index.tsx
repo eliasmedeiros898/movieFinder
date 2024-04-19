@@ -2,12 +2,13 @@ import { MagnifyingGlass } from "phosphor-react";
 import { useContext, useState } from "react";
 import { Button, Modal, Nav } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { HeaderNavbar, HeaderNavbarBrand } from './styles';
-import { Movie, MoviesContext, SearchMovieType } from "../../contexts/MoviesContext";
 import { useNavigate } from "react-router-dom";
+import { MoviesContext } from "../../contexts/MoviesContext";
+import { HeaderNavbar, HeaderNavbarBrand } from './styles';
 
 interface SearchProps{
   text: string
+  page?: number
 }
 
 export function Header() {
@@ -24,8 +25,8 @@ export function Header() {
 
   async function handleSearch(data:SearchProps) {
     const text = data.text
-    console.log(text)
-    await searchMovies(text)
+    const page = 1
+    await searchMovies(text,page)
     handleClose()
     reset()
     navigate('/search_result')

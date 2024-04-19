@@ -28,7 +28,7 @@ export const Overview = styled.div`
     border: 1px solid ${props => props.theme['gray-300']};
     margin-top: 10rem;
     margin-left: 4rem;
-    width: 70vw;
+    width: 90vw;
     backdrop-filter: blur(10px);
     padding: 2rem;
     align-items: flex-start;
@@ -77,10 +77,9 @@ export const AverageVote = styled.div`
 
 export const Content = styled.div`
     position: absolute;
-    display: flex;
     margin-top: -60rem;
     width: 100vw;
-    height: 80vh;
+    height: fit-content;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
     color: white;
     font-family: "Varela Round", sans-serif;

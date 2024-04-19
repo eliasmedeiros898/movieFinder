@@ -89,7 +89,8 @@ interface MoviesContextType {
     fetchPopularMovies: () => Promise<void>
     createGuestSession: () => Promise<void>
     getMovieById: (id:string) => Promise<MovieDetais>
-    searchMovies: (query:string) => Promise<void>
+    searchMovies: (query:string, page?: number) => Promise<void>
+    //getSearchedMovieObject: (query:string) => Promise<SearchMovieType>
     
   }
 
@@ -116,7 +117,7 @@ export const MoviesContext = createContext({} as MoviesContextType)
         const [popularMovies, setPopularMovies] = useState<Movie[]>([])
         const [guestSessionId, setGuestSessionId] = useState<string>('')
         const [searchedMovies, setSearchedMovies] = useState<Movie[]>([])
-
+        //const [searchedMoviesObject, setSearchedMoviesObject] = useState<SearchMovieType>()
       
       async function fetchTopRatedMovies() {
           const response = await api.get(`/movie/top_rated?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
@@ -145,11 +146,17 @@ export const MoviesContext = createContext({} as MoviesContextType)
         return response.data
       }
 
-      async function searchMovies(query:string){
-        const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}`)
+      async function searchMovies(query:string, page?: number){
+        const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}&page=${page}`)
         setSearchedMovies(response.data.results)
         
       }
+
+      // async function getSearchedMovieObject(query:string){
+      //   const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}`)
+      //   setSearchedMoviesObject(response.data)
+      //   return searchedMoviesObject
+      // }
 
    
 
@@ -170,7 +177,8 @@ export const MoviesContext = createContext({} as MoviesContextType)
           fetchPopularMovies,
           createGuestSession,
           getMovieById,
-          searchMovies
+          searchMovies,
+          
           
         }}
       >

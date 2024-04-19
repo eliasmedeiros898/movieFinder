@@ -61,8 +61,8 @@ export function Home() {
                             
                         
                     {topMovies.map(movie => (
-                                <a href={`/movie_page/${movie.id}`}>
-                                <Card key={movie.id} style={{width:"20rem"}} bg="dark" text="white">
+                                <a key={movie.id} href={`/movie_page/${movie.id}`}>
+                                <Card  style={{width:"20rem"}} bg="dark" text="white">
                                     <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
                                     <Card.Body >
                                         <Card.Title >{movie.title}</Card.Title>
@@ -88,8 +88,8 @@ export function Home() {
                             
                         
                             {upcomingMovies.map(movie => (
-                                <a href={`/movie_page/${movie.id}`}>
-                                <Card key={movie.id} style={{width:"20rem"}} bg="dark" text="white">
+                                <a key={movie.id} href={`/movie_page/${movie.id}`}>
+                                <Card  style={{width:"20rem"}} bg="dark" text="white">
                                     <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
                                     <Card.Body >
                                         <Card.Title >{movie.title}</Card.Title>
