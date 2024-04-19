@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Movie, MoviesContext } from "../../contexts/MoviesContext";
 import { Heart } from "phosphor-react";
+import React from "react";
 
 
 

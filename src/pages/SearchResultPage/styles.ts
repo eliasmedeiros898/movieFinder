@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const ResultDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     width: 100vw;
     height: fit-content;
     gap: 4rem;
@@ -21,15 +21,17 @@ export const ResultDiv = styled.div`
         
         
     }
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: 1600px) {
         grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-left: 1rem;
     }
 
     @media screen and (max-width: 1000px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 755px) {
+    @media screen and (max-width: 700px) {
         grid-template-columns: repeat(1, 1fr);
     }
 

@@ -29,6 +29,23 @@ export const CustomCarousel = styled(Carousel)`
     .carousel-control-next, .carousel-control-prev{
         z-index: 0;
     }
+
+    @media screen and (max-width: 768px) {
+        height: 50vh;
+
+        img{
+            height: 70vh;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        height: 30vh;
+    }
+    @media screen and (max-width: 400px) {
+        img{
+            height: 50vh;
+        }
+    }
 `
 
 export const CustomCarouselCaption = styled(Carousel.Caption)`
@@ -40,6 +57,20 @@ export const CustomCarouselCaption = styled(Carousel.Caption)`
      1px -1px 0 #000,
     -1px  1px 0 #000,
      1px  1px 0 #000;
+
+     @media screen and (max-width: 768px) {
+        top: 19rem;
+
+        
+    }
+
+    @media screen and (max-width: 576px) {
+        top: 8rem;
+    }
+
+    @media screen and (max-width: 400px) {
+        font-size: 20px;
+    }
 
 
 `

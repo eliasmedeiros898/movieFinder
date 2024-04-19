@@ -21,6 +21,9 @@ export const CustomCard = styled(Card)`
         
         
     }
+    
+
+    
 
 
 `

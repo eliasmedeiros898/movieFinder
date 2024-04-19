@@ -30,7 +30,7 @@ export function HomeCard({title, id, vote_average, poster_path}:HomeCardProps) {
 
     return(
     
-        <CustomCard style={{width:"20rem"}} bg="dark" text="white" onClick={navigateFoward}>
+        <CustomCard  bg="dark" text="white" onClick={navigateFoward}>
             
             <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${poster_path}`} />
             <Card.Body style={{display:"flex", flexDirection:"column", alignItems:"center"}}>

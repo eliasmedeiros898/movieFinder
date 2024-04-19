@@ -142,6 +142,7 @@ export const MoviesContext = createContext({} as MoviesContextType)
       async function fetchFavoritesMovies() {
         const response = await api.get(`/account/${import.meta.env.VITE_TMDB_ACCOUNT_ID}/favorite/movies?language=pt-bR`)
         setFavoriteMovies(response.data.results)
+        return response.data
       }
 
       async function createGuestSession() {

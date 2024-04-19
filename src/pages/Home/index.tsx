@@ -5,6 +5,8 @@ import { Header } from "../../components/Header";
 import { Movie, MoviesContext } from "../../contexts/MoviesContext";
 import { HomeCard } from "./components/HomeCard";
 import { CustomCarousel, CustomCarouselCaption, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
+import { Link } from "react-router-dom";
+
 
 
 
@@ -33,14 +35,14 @@ export function Home() {
                 {popularMovies.map((movie:Movie) => (
                 
                     <Carousel.Item key={movie.id}>
-                        <a href={`/movie_page/${movie.id}`}>
+                        <Link to={`/movie_page/${movie.id}`}>
         
                         <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                         <CustomCarouselCaption>
                             <h2>{movie.title}</h2>
                             <p>Nota: {movie.vote_average.toFixed(1)}</p>
                         </CustomCarouselCaption>
-                        </a>
+                        </Link>
                     </Carousel.Item> 
                 
                 ))}

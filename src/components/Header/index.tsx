@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { MoviesContext } from "../../contexts/MoviesContext";
 import { HeaderNavbar, HeaderNavbarBrand } from './styles';
+import { Link } from "react-router-dom";
+
 
 interface SearchProps{
   text: string
@@ -34,13 +36,13 @@ export function Header() {
 
     return(
     <>
-    <HeaderNavbar expand="lg" variant='dark' bg="none" style={{width:"100vw"}}>
+    <HeaderNavbar expand="lg" variant='dark' bg="none" style={{width:"100vw",display:"flex", justifyContent:"center"}}>
       
         <HeaderNavbarBrand href="/">Movie Finder</HeaderNavbarBrand>
           <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />
           <HeaderNavbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/favorites">Favoritos</Nav.Link>
+              <Link style={{textDecoration:"none",color:'#b4b4be'}}to="/favorites">Favoritos</Link>
               <Nav.Link href="#" onClick={handleShow}><MagnifyingGlass/></Nav.Link>
               
             </Nav>

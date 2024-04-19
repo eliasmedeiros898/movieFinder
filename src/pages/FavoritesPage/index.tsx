@@ -5,12 +5,18 @@ import { FavoritesContent } from "../FavoritesPage/styles"
 import { HomeCard } from "../Home/components/HomeCard"
 
 
+
 export function FavoritesPage(){
 
     const {fetchFavoritesMovies, favoriteMovies} = useContext(MoviesContext)
+    
 
     useEffect(() => {
+        
+        
         fetchFavoritesMovies()
+        
+        
     }, [])
 
 
