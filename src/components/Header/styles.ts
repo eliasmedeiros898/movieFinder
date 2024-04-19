@@ -5,10 +5,12 @@ import { Navbar, Container, Nav, NavDropdown, Modal } from "react-bootstrap";
 export const HeaderNavbar = styled(Navbar)`
     padding: 1rem;
     min-height: 5rem;
-    width: 100vw;
+    margin-left: 1rem;
+    width: auto;
     display: flex;
     width: 100vw;
-    background: ${props => props.theme['gray-700']};
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    z-index: 1;
 
 `
 

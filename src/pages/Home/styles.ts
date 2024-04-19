@@ -2,35 +2,41 @@ import { useContext } from "react";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
 import { MoviesContext } from "../../contexts/MoviesContext";
+import { Heart, Star } from "phosphor-react";
 
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     
+    
 
 
 `
 
 export const CustomCarousel = styled(Carousel)`
-    display: flex;
     width: 100vw;
-    height: 50vh;
-    text-align: center;
+    height: 70vh;
+    margin-top: -6rem;
+    
     
     
     img {
         width: 100vw;
+        height: 90vh;
+        
     }
+    
 
-    
-    
+    .carousel-control-next, .carousel-control-prev{
+        z-index: 0;
+    }
 `
 
 export const CustomCarouselCaption = styled(Carousel.Caption)`
     
     position: absolute;
-    top: 19rem;
+    top: 30rem;
     text-shadow: 
     -1px -1px 0 #000,  
      1px -1px 0 #000,
@@ -46,6 +52,7 @@ export const MovieCardWrapper = styled.div`
     width: fit-content;
     height: fit-content;
     
+    
     a {
         text-decoration: none;
         transition: transform 0.4s ease;
@@ -54,6 +61,16 @@ export const MovieCardWrapper = styled.div`
     a:hover{
         transform: scale(1.04);
         
+        
+    }
+    
+    button {
+        background: none;
+        border: none;
+
+    }
+
+    button:hover{
         
     }
 
@@ -92,5 +109,19 @@ export const MovieSection = styled.div`
     :-webkit-scrollbar-thumb:hover {
         background-color: #555;
     }
+
+`
+
+export const CustomStar = styled(Star)`
+    color: yellow;
+
+
+`
+
+export const CustomHeart = styled(Heart)`
+    color: red;
+    z-index: 2;
+    
+
 
 `

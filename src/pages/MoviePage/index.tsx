@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Movie, MoviesContext } from '../../contexts/MoviesContext';
-
-
+import { MovieDetais, MoviesContext } from '../../contexts/MoviesContext';
+import { AverageVote, Content, MovieDetails, Overview, Poster, ReleaseDate } from '../MoviePage/styles';
+import { format } from "date-fns";
 
 
 export function MoviePage() {
@@ -10,7 +10,7 @@ export function MoviePage() {
     
     const {getMovieById} = useContext(MoviesContext)
 
-    const [movie, setMovie] = useState<Movie | null>( null )
+    const [movie, setMovie] = useState<MovieDetais | null>( null )
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -28,8 +28,38 @@ export function MoviePage() {
         fetchMovie(); 
     }, [movieId, getMovieById]);
 
+    
 
-    return(
-        <div>movie page do filme: {movie?.title}</div>
-    )
-}
+    return (
+        <MovieDetails className="movie-details">
+          {movie ? (
+            
+            <>
+                <Poster src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt={movie.title} />
+                
+                <Content>
+                <Overview>
+                    <h1>{movie.title}</h1>
+                    
+                    <p>{movie.overview}</p>
+                    <ReleaseDate>
+                        <h2>Lançamento</h2>
+                        <p>{format(new Date(movie.release_date), 'dd/MM/yyyy')}</p>
+                    </ReleaseDate>
+                    <AverageVote>
+                        <h2>Average Vote</h2>
+                        <p property={movie.vote_average.toFixed(1)}>{movie.vote_average.toFixed(1)}</p>
+                    </AverageVote>
+
+
+                </Overview>
+                </Content>
+            </>  
+            
+          ) : (
+            <div>Carregando...</div>
+          )}
+        </MovieDetails>
+      );
+    };
+

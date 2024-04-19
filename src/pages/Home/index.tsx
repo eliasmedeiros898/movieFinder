@@ -1,18 +1,25 @@
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import { Header } from "../../components/Header";
 import { MoviesContext } from "../../contexts/MoviesContext";
-import { CustomCarousel, CustomCarouselCaption, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
+import { CustomCarousel, CustomCarouselCaption, CustomStar, MovieCardWrapper, MovieSection, SectionTitle, Wrapper,CustomHeart } from "./styles";
 import { Link } from "react-router-dom";
 import {Movie} from '../../contexts/MoviesContext'
+import { format } from "date-fns";
+import { Heart, Star } from "phosphor-react";
 
 
 
 export function Home() {
 
     const {topMovies, upcomingMovies,popularMovies,fetchPopularMovies, fetchTopRatedMovies,fetchUpcomingMovies} = useContext(MoviesContext)
+    const [heartClicked, setHeartClicked] = useState(false);
+    
+    const handleClick = () => {
+        setHeartClicked(!heartClicked);
+      };
     
     
 
@@ -37,7 +44,7 @@ export function Home() {
                     <Carousel.Item key={movie.id}>
                         <a href={`/movie_page/${movie.id}`}>
         
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="" />
+                        <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                         <CustomCarouselCaption>
                             <h2>{movie.title}</h2>
                             <p>Nota: {movie.vote_average.toFixed(1)}</p>
@@ -47,6 +54,7 @@ export function Home() {
                 
                 ))}
             </CustomCarousel>
+                
             
             
             <MovieSection>
@@ -54,17 +62,22 @@ export function Home() {
                 {<MovieCardWrapper>
                             
                         
-                            {topMovies.map(movie => (
-                            <a href={`/movie_page/${movie.id}`}>
-                                <Card key={movie.id} border="danger" style={{width:"25rem"}} bg="dark" text="white">
-                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} />
-                                    <Card.Body style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-                                        <Card.Title>{movie.title}</Card.Title>
-                                        <Card.Title>{movie.vote_average.toFixed(1)}</Card.Title>
-                                
+                    {topMovies.map(movie => (
+                                <a href={`/movie_page/${movie.id}`}>
+                                <Card key={movie.id} style={{width:"20rem"}} bg="dark" text="white">
+                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+                                    <Card.Body >
+                                        <Card.Title >{movie.title}</Card.Title>
+                                        <Card.Text style={{display:"flex", gap:"1rem", alignItems:"center", justifyContent:"space-between"}}>
+                                            <div>
+                                                <CustomStar /> {movie.vote_average.toFixed(1)}
+                                            </div>
+                                            <Heart/>
+                                        
+                                        </Card.Text>
                                     </Card.Body>
-                            </Card>
-                            </a>        
+                                </Card>
+                                </a>
                             ))}
                                 
                         </MovieCardWrapper>
@@ -78,12 +91,19 @@ export function Home() {
                         
                             {upcomingMovies.map(movie => (
                                 <a href={`/movie_page/${movie.id}`}>
-                                <Card key={movie.id} border="danger" style={{width:"25rem"}} bg="dark" text="white">
-                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} />
+                                <Card key={movie.id} style={{width:"20rem"}} bg="dark" text="white">
+                                    <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
                                     <Card.Body >
                                         <Card.Title >{movie.title}</Card.Title>
-                                        <Card.Title>{movie.vote_average.toFixed(1)}</Card.Title>
-                                
+                                        <Card.Title style={{display:"flex", justifyContent:"space-between"}}>
+
+                                            {format(new Date(movie.release_date), 'dd/MM/yyyy')} 
+                                            <button>
+                                              <CustomHeart size={34} weight={heartClicked ? 'fill' : 'regular'} onClick={handleClick}/>  
+                                            </button>
+                                            
+                                        
+                                        </Card.Title>
                                     </Card.Body>
                                 </Card>
                                 </a>
