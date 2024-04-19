@@ -40,7 +40,7 @@ export function Header() {
           <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />
           <HeaderNavbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/favorites">Favorites</Nav.Link>
+              <Nav.Link href="/favorites">Favoritos</Nav.Link>
               <Nav.Link href="#" onClick={handleShow}><MagnifyingGlass/></Nav.Link>
               
             </Nav>
