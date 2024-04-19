@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, Modal } from "react-bootstrap";
 
 
 export const HeaderNavbar = styled(Navbar)`
     padding: 1rem;
-    display: flex;
-    border-bottom: 1px solid ${props => props.theme['gray-500']};
+    min-height: 5rem;
     width: 100vw;
+    display: flex;
+    width: 100vw;
+    background: ${props => props.theme['gray-700']};
 
 `
 
@@ -22,6 +24,12 @@ export const HeaderNavbarBrand = styled(Navbar.Brand)`
     
 
 `
+
+export const SearchButton = styled.button`
+
+
+`
+
 
 
 

@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 
-interface Movie {
+export interface Movie {
     adult: boolean;
     backdrop_path: string | null ;
     genre_ids: number[];
@@ -20,8 +20,15 @@ interface Movie {
 
 
 interface MoviesContextType {
-    movies: Movie[]
+    topMovies: Movie[]
+    upcomingMovies: Movie[]
+    popularMovies: Movie[]
+    guestSessionId: string
     fetchTopRatedMovies: () => Promise<void>
+    fetchUpcomingMovies: () => Promise<void>
+    fetchPopularMovies: () => Promise<void>
+    createGuestSession: () => Promise<void>
+    getMovieById: (id:string) => Promise<Movie>
     
   }
 
@@ -35,26 +42,55 @@ interface MoviesProviderProps {
 export const MoviesContext = createContext({} as MoviesContextType)
 
 export function MoviesProvider({ children }: MoviesProviderProps) {
-    const [movies, setMovies] = useState<Movie[]>([])
+    const [topMovies, setTopMovies] = useState<Movie[]>([])
+    const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([])
+    const [popularMovies, setPopularMovies] = useState<Movie[]>([])
+    const [guestSessionId, setGuestSessionId] = useState<string>('')
+
   
     async function fetchTopRatedMovies() {
         const response = await api.get(`/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
-        setMovies(response.data.results)
+        setTopMovies(response.data.results)
         
     }
+    async function fetchUpcomingMovies() {
+      const response = await api.get(`/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+      setUpcomingMovies(response.data.results)
+      
+    }
+    async function fetchPopularMovies() {
+      const response = await api.get(`/movie/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+      setPopularMovies(response.data.results)
+      
+    }
+    
+
+    async function createGuestSession() {
+       const response = await api.get(`/authentication/guest_session/new`)
+       setGuestSessionId(response.data.guest_session_id)
+    }
+
+    async function getMovieById(id:string) {
+      const response = await api.get(`/movie/${id}`)
+      return response.data
+   }
+
   
     
-  
-    useEffect(() => {
-        fetchTopRatedMovies()
-    }, [])
     
-    console.log(movies)
+    
     return (
       <MoviesContext.Provider
         value={{
-          movies,
+          topMovies,
+          upcomingMovies,
+          guestSessionId,
+          popularMovies,
           fetchTopRatedMovies,
+          fetchUpcomingMovies,
+          fetchPopularMovies,
+          createGuestSession,
+          getMovieById
         }}
       >
         {children}

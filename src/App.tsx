@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from "./styles/themes/default";
 import { BrowserRouter} from 'react-router-dom';
