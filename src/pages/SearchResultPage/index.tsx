@@ -1,11 +1,8 @@
-import { Heart } from "phosphor-react"
 import { useContext } from "react"
-import { Card } from "react-bootstrap"
 import { Header } from "../../components/Header"
 import { MoviesContext } from "../../contexts/MoviesContext"
-import { CustomStar } from "../Home/styles"
-import { AlertDiv, ResultDiv } from "./styles"
 import { HomeCard } from "../Home/components/HomeCard"
+import { AlertDiv, ResultDiv } from "./styles"
 
 
 export function SearchResultPage() {

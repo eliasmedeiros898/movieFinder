@@ -1,20 +1,17 @@
 
-import { format } from "date-fns";
-import { Heart } from "phosphor-react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
-import Card from 'react-bootstrap/Card';
 import { Header } from "../../components/Header";
 import { Movie, MoviesContext } from "../../contexts/MoviesContext";
-import { CustomCarousel, CustomCarouselCaption, CustomHeart, CustomStar, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
 import { HomeCard } from "./components/HomeCard";
+import { CustomCarousel, CustomCarouselCaption, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
 
 
 
 export function Home() {
 
-    const {topMovies, upcomingMovies,popularMovies,fetchPopularMovies, fetchTopRatedMovies,fetchUpcomingMovies, setMovieAsFavorite} = useContext(MoviesContext)
-    const [heartClicked, setHeartClicked] = useState(false);
+    const {topMovies, upcomingMovies,popularMovies,fetchPopularMovies, fetchTopRatedMovies,fetchUpcomingMovies} = useContext(MoviesContext)
+    
     
     useEffect(() => {
         fetchTopRatedMovies()
@@ -54,8 +51,6 @@ export function Home() {
             <MovieSection>
                 <SectionTitle>Melhores avaliações:</SectionTitle>
                 {<MovieCardWrapper>
-                            
-                        
                     {topMovies.map(movie => (
                                 
                                 <HomeCard 
@@ -65,7 +60,6 @@ export function Home() {
                                     vote_average={movie.vote_average}
                                     poster_path={movie.poster_path}
                                 />
-                                
                             ))}
                                 
                         </MovieCardWrapper>

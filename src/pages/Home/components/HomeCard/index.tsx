@@ -1,10 +1,11 @@
 import { Card } from "react-bootstrap";
 import { CustomStar } from "../../styles";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MoviesContext } from "../../../../contexts/MoviesContext";
 import { Heart } from "phosphor-react";
 import { CustomCard } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { FavoriteButton } from "../../../../components/FavoriteButton";
 
 
 interface HomeCardProps{
@@ -17,7 +18,8 @@ interface HomeCardProps{
 
 export function HomeCard({title, id, vote_average, poster_path}:HomeCardProps) {
 
-    const {setMovieAsFavorite} = useContext(MoviesContext)
+    
+    const [heartClicked, setHeartClicked] = useState(false);
 
     const navigate = useNavigate()
 
@@ -25,18 +27,7 @@ export function HomeCard({title, id, vote_average, poster_path}:HomeCardProps) {
         navigate(`/movie_page/${id}`)
     }
 
-    function FavoriteButton({ movieId }: { movieId: number }) {
-
-        const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation(); 
-            setMovieAsFavorite(movieId);
-          };
-        return (
-        <button onClick={handleButtonClick}>
-            <Heart  color="red"/>
-        </button>
-        );
-    }
+    
 
 
 
