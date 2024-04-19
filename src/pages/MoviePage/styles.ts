@@ -44,6 +44,18 @@ export const Overview = styled.div`
         font-size: 29px;
     }
 
+    @media screen and (max-width: 1200px) {
+        margin-top: 20rem;
+        margin-left: 1rem;
+        h1{
+            font-size: 32px;
+        }
+
+        p{
+            font-size: 15px;
+        }
+    }
+
     @media screen and (max-width: 400px) {
         margin-top: 15rem;
         margin-left: 1rem;
