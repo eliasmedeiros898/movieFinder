@@ -16,6 +16,8 @@ export const FavoritesContent = styled.div`
 
     @media screen and (max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
+        margin-left: 0;
+        padding: 2rem;
     }
 
     

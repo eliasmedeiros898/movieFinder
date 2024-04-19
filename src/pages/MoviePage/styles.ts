@@ -16,6 +16,7 @@ export const Poster = styled.img`
   object-fit: cover;
   position: relative;
   
+
   
   
   
@@ -41,6 +42,18 @@ export const Overview = styled.div`
 
     p{
         font-size: 29px;
+    }
+
+    @media screen and (max-width: 400px) {
+        margin-top: 15rem;
+        margin-left: 1rem;
+        h1{
+            font-size: 32px;
+        }
+
+        p{
+            font-size: 15px;
+        }
     }
 
 `;
