@@ -1,7 +1,10 @@
-import { Nav, Modal, Button } from "react-bootstrap";
-import { HeaderNavbar, HeaderNavbarBrand, SearchButton } from './styles';
-import { useState } from "react";
+import { MagnifyingGlass } from "phosphor-react";
+import { useContext, useState } from "react";
+import { Button, Modal, Nav } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { HeaderNavbar, HeaderNavbarBrand } from './styles';
+import { Movie, MoviesContext, SearchMovieType } from "../../contexts/MoviesContext";
+import { useNavigate } from "react-router-dom";
 
 interface SearchProps{
   text: string
@@ -9,42 +12,43 @@ interface SearchProps{
 
 export function Header() {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate()
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const {searchMovies} = useContext(MoviesContext)
   
   const {register,reset,handleSubmit} = useForm<SearchProps>()
 
 
-  function handleSearch(data:SearchProps) {
+  async function handleSearch(data:SearchProps) {
     const text = data.text
-
-
+    console.log(text)
+    await searchMovies(text)
     handleClose()
     reset()
-
-    
+    navigate('/search_result')
   }
 
     return(
     <>
     <HeaderNavbar expand="lg" variant='dark' bg="none">
       
-        <HeaderNavbarBrand href="#home">Movie Finder</HeaderNavbarBrand>
-        <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />
-        <HeaderNavbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Categorias</Nav.Link>
-            <Nav.Link href="#" onClick={handleShow}>Search</Nav.Link>
-            
-          </Nav>
-        </HeaderNavbar.Collapse>
+        <HeaderNavbarBrand href="/">Movie Finder</HeaderNavbarBrand>
+          <HeaderNavbar.Toggle aria-controls="basic-navbar-nav" />
+          <HeaderNavbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Categorias</Nav.Link>
+              <Nav.Link href="#" onClick={handleShow}><MagnifyingGlass/></Nav.Link>
+              
+            </Nav>
+          </HeaderNavbar.Collapse>
       
-    </HeaderNavbar>
+        </HeaderNavbar>
 
       
-            <Modal show={show} onHide={handleClose} data-bs-theme='dark' >
+        <Modal show={show} onHide={handleClose} data-bs-theme='dark' >
             <form onSubmit={handleSubmit(handleSearch)}>
               <Modal.Header closeButton>
                 <Modal.Title>Qual filme deseja ver hoje?</Modal.Title>
@@ -55,7 +59,7 @@ export function Header() {
                 <Button variant="light" type="submit">Search</Button>
               </Modal.Footer>
             </form>
-          </Modal>
+        </Modal>
       
       
       </>

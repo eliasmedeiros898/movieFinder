@@ -1,14 +1,12 @@
 
+import { format } from "date-fns";
+import { Heart } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import { Header } from "../../components/Header";
-import { MoviesContext } from "../../contexts/MoviesContext";
-import { CustomCarousel, CustomCarouselCaption, CustomStar, MovieCardWrapper, MovieSection, SectionTitle, Wrapper,CustomHeart } from "./styles";
-import { Link } from "react-router-dom";
-import {Movie} from '../../contexts/MoviesContext'
-import { format } from "date-fns";
-import { Heart, Star } from "phosphor-react";
+import { Movie, MoviesContext } from "../../contexts/MoviesContext";
+import { CustomCarousel, CustomCarouselCaption, CustomHeart, CustomStar, MovieCardWrapper, MovieSection, SectionTitle, Wrapper } from "./styles";
 
 
 

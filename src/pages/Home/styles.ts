@@ -1,8 +1,6 @@
-import { useContext } from "react";
+import { Heart, Star } from "phosphor-react";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import { MoviesContext } from "../../contexts/MoviesContext";
-import { Heart, Star } from "phosphor-react";
 
 export const Wrapper = styled.div`
     display: flex;

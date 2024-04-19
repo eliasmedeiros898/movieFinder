@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { api } from "../services/api";
 
 export interface Movie {
@@ -83,13 +83,23 @@ interface MoviesContextType {
     upcomingMovies: Movie[]
     popularMovies: Movie[]
     guestSessionId: string
+    searchedMovies: Movie[]
     fetchTopRatedMovies: () => Promise<void>
     fetchUpcomingMovies: () => Promise<void>
     fetchPopularMovies: () => Promise<void>
     createGuestSession: () => Promise<void>
     getMovieById: (id:string) => Promise<MovieDetais>
+    searchMovies: (query:string) => Promise<void>
     
   }
+
+
+export interface SearchMovieType{
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
 
 
 interface MoviesProviderProps {
@@ -100,39 +110,48 @@ interface MoviesProviderProps {
 
 export const MoviesContext = createContext({} as MoviesContextType)
 
-export function MoviesProvider({ children }: MoviesProviderProps) {
-    const [topMovies, setTopMovies] = useState<Movie[]>([])
-    const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([])
-    const [popularMovies, setPopularMovies] = useState<Movie[]>([])
-    const [guestSessionId, setGuestSessionId] = useState<string>('')
+    export function MoviesProvider({ children }: MoviesProviderProps) {
+        const [topMovies, setTopMovies] = useState<Movie[]>([])
+        const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([])
+        const [popularMovies, setPopularMovies] = useState<Movie[]>([])
+        const [guestSessionId, setGuestSessionId] = useState<string>('')
+        const [searchedMovies, setSearchedMovies] = useState<Movie[]>([])
 
-  
-    async function fetchTopRatedMovies() {
-        const response = await api.get(`/movie/top_rated?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
-        setTopMovies(response.data.results)
+      
+      async function fetchTopRatedMovies() {
+          const response = await api.get(`/movie/top_rated?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+          setTopMovies(response.data.results)
+          
+      }
+      async function fetchUpcomingMovies() {
+        const response = await api.get(`/movie/upcoming?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+        setUpcomingMovies(response.data.results)
         
-    }
-    async function fetchUpcomingMovies() {
-      const response = await api.get(`/movie/upcoming?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
-      setUpcomingMovies(response.data.results)
+      }
+      async function fetchPopularMovies() {
+        const response = await api.get(`/movie/popular?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+        setPopularMovies(response.data.results)
+        
+      }
       
-    }
-    async function fetchPopularMovies() {
-      const response = await api.get(`/movie/popular?language=pt-bR?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
-      setPopularMovies(response.data.results)
-      
-    }
-    
 
-    async function createGuestSession() {
-       const response = await api.get(`/authentication/guest_session/new`)
-       setGuestSessionId(response.data.guest_session_id)
-    }
+      async function createGuestSession() {
+          const response = await api.get(`/authentication/guest_session/new`)
+          setGuestSessionId(response.data.guest_session_id)
+      }
 
-    async function getMovieById(id:string) {
-      const response = await api.get(`/movie/${id}?language=pt-bR`)
-      return response.data
-   }
+      async function getMovieById(id:string) {
+        const response = await api.get(`/movie/${id}?language=pt-bR`)
+        return response.data
+      }
+
+      async function searchMovies(query:string){
+        const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}`)
+        setSearchedMovies(response.data.results)
+        
+      }
+
+   
 
   
     
@@ -145,11 +164,14 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
           upcomingMovies,
           guestSessionId,
           popularMovies,
+          searchedMovies,
           fetchTopRatedMovies,
           fetchUpcomingMovies,
           fetchPopularMovies,
           createGuestSession,
-          getMovieById
+          getMovieById,
+          searchMovies
+          
         }}
       >
         {children}

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { MovieDetais, MoviesContext } from '../../contexts/MoviesContext';
 import { AverageVote, Content, MovieDetails, Overview, Poster, ReleaseDate } from '../MoviePage/styles';
 import { format } from "date-fns";
+import { Header } from '../../components/Header';
 
 
 export function MoviePage() {
@@ -31,6 +32,8 @@ export function MoviePage() {
     
 
     return (
+        <>
+        <Header/>
         <MovieDetails className="movie-details">
           {movie ? (
             
@@ -41,12 +44,12 @@ export function MoviePage() {
                 <Overview>
                     <h1>{movie.title}</h1>
                     
-                    <p>{movie.overview}</p>
+                    <p>{movie.id}</p>
                     <ReleaseDate>
                         <h2>Lançamento</h2>
                         <p>{format(new Date(movie.release_date), 'dd/MM/yyyy')}</p>
                     </ReleaseDate>
-                    <AverageVote>
+                    <AverageVote property={movie.vote_average.toFixed(1)}>
                         <h2>Average Vote</h2>
                         <p property={movie.vote_average.toFixed(1)}>{movie.vote_average.toFixed(1)}</p>
                     </AverageVote>
@@ -60,6 +63,8 @@ export function MoviePage() {
             <div>Carregando...</div>
           )}
         </MovieDetails>
+        
+        </>
       );
     };
 

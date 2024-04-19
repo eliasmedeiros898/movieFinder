@@ -1,11 +1,12 @@
+import { Navbar } from "react-bootstrap";
 import styled from "styled-components";
-import { Navbar, Container, Nav, NavDropdown, Modal } from "react-bootstrap";
 
 
 export const HeaderNavbar = styled(Navbar)`
     padding: 1rem;
     min-height: 5rem;
-    margin-left: 1rem;
+    
+    align-items: center;
     width: auto;
     display: flex;
     width: 100vw;
