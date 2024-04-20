@@ -77,6 +77,24 @@ export interface Movie {
     vote_count: number;
   }
 
+  export interface Provider {
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+    display_priority: number;
+  }
+  
+  interface Results {
+    link: string;
+    flatrate: Provider[];
+    buy: Provider[];
+    rent: Provider[];
+  }
+  
+  interface MovieResults {
+    [countryCode: string]: Results;
+  }
+
 
 interface MoviesContextType {
     topMovies: Movie[]
@@ -93,6 +111,7 @@ interface MoviesContextType {
     getMovieById: (id:string) => Promise<MovieDetais>
     setMovieAsFavorite: (id:number) => Promise<void>
     searchMovies: (query:string, page?: number) => Promise<void>
+    getMovieProviders: (id:string) => Promise<Provider>
     //getSearchedMovieObject: (query:string) => Promise<SearchMovieType>
     
   }
@@ -119,6 +138,7 @@ export const MoviesContext = createContext({} as MoviesContextType)
         const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([])
         const [popularMovies, setPopularMovies] = useState<Movie[]>([])
         const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([])
+        const [movieProviders, setMovieProviders] = useState<Results[]>()
         const [guestSessionId, setGuestSessionId] = useState<string>('')
         const [searchedMovies, setSearchedMovies] = useState<Movie[]>([])
         //const [searchedMoviesObject, setSearchedMoviesObject] = useState<SearchMovieType>()
@@ -158,6 +178,13 @@ export const MoviesContext = createContext({} as MoviesContextType)
       async function searchMovies(query:string, page?: number){
         const response = await api.get(`/search/movie?api_key=${import.meta.env.VITE_TMDB_API_KEY}&query=${query}&page=${page}`)
         setSearchedMovies(response.data.results)
+        
+      }
+
+      async function getMovieProviders(id:string) {
+        const response = await api.get(`/movie/${id}/watch/providers`)
+        console.log(response.data.results.CA.flatrate)
+        return response.data.results.CA.flatrate
         
       }
 
@@ -206,6 +233,7 @@ export const MoviesContext = createContext({} as MoviesContextType)
           createGuestSession,
           getMovieById,
           searchMovies,
+          getMovieProviders
           
           
         }}

@@ -20,6 +20,7 @@ export function Home() {
         fetchUpcomingMovies()
         fetchPopularMovies()
         
+        
     }, [])
 
 
@@ -41,6 +42,7 @@ export function Home() {
                         <CustomCarouselCaption>
                             <h2>{movie.title}</h2>
                             <p>Nota: {movie.vote_average.toFixed(1)}</p>
+                            
                         </CustomCarouselCaption>
                         </Link>
                     </Carousel.Item> 

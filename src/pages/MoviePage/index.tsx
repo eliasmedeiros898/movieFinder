@@ -2,16 +2,17 @@ import { format } from "date-fns";
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/Header';
-import { MovieDetais, MoviesContext } from '../../contexts/MoviesContext';
+import { MovieDetais, MoviesContext, Provider } from '../../contexts/MoviesContext';
 import { AverageVote, Content, MovieDetails, Overview, Poster, ReleaseDate } from '../MoviePage/styles';
 
 
 export function MoviePage() {
     const { movieId } = useParams();
     
-    const {getMovieById} = useContext(MoviesContext)
+    const {getMovieById, getMovieProviders} = useContext(MoviesContext)
 
     const [movie, setMovie] = useState<MovieDetais | null>( null )
+    const [movieProvider, setMovieProvider] = useState<Provider>()
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -19,7 +20,9 @@ export function MoviePage() {
                 if (movieId) {
                     
                     const movie = await getMovieById(movieId);
+                    const movieProvider = await getMovieProviders(movieId);
                     setMovie(movie); 
+                    setMovieProvider(movieProvider);
                 }
             } catch (error) {
                 console.error('Erro ao buscar filme:', error);
@@ -35,7 +38,7 @@ export function MoviePage() {
         <>
         <Header/>
         <MovieDetails className="movie-details">
-          {movie ? (
+          {movie  ? (
             
             <>
                 <Poster src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt={movie.title} />
@@ -53,6 +56,7 @@ export function MoviePage() {
                         <h2>Nota média</h2>
                         <p property={movie.vote_average.toFixed(1)}>{movie.vote_average.toFixed(1)}</p>
                     </AverageVote>
+                    
 
 
                 </Overview>
@@ -63,6 +67,9 @@ export function MoviePage() {
             <div>Carregando...</div>
           )}
         </MovieDetails>
+        
+
+
         
         </>
       );
